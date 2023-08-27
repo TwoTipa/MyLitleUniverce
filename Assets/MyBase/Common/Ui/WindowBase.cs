@@ -7,17 +7,17 @@ namespace MyBase.Common.Ui
     {
         public Canvas canvas { get; private set; }
 
-        private WindowManager _windowManager;
+        protected WindowManager WindowManager;
 
         public WindowBase Bind(WindowManager windowManager)
         {
-            _windowManager = windowManager;
+            WindowManager = windowManager;
             return this;
         }
 
         public virtual void Close()
         {
-            _windowManager.Close(this);
+            WindowManager.Close(this);
         }
 
         protected virtual void Awake()

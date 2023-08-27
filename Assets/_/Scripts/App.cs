@@ -1,26 +1,55 @@
-﻿using _.Scripts.Ui.Windows;
+﻿using System;
+using _.Scripts.Players;
+using _.Scripts.Rafts;
+using _.Scripts.Ui.Windows;
 using MyBase.Common;
 using MyBase.Common.Ui;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _.Scripts
 {
-    public class App : Singleton<App>
+    public class App : Singleton<MonoBehaviour>
     {
-        public WindowManager windowManager { get; private set; }
+        public static WindowManager WindowManager;
 
-        protected override void Awake()
+        [SerializeField] private Raft raft;
+        [SerializeField] private Player player;
+
+        public override void Touch()
         {
-            base.Awake();
-
-            windowManager = new GameObject("WindowManager").AddComponent<WindowManager>();
-            windowManager.transform.SetParent(transform);
+            base.Touch();
+            
+            
         }
 
-        
+        private void Awake()
+        {
+            WindowManager = new GameObject("WindowManager").AddComponent<WindowManager>();
+            WindowManager.transform.SetParent(transform);
+
+            player.Initialization();
+            raft.Initialization(player);
+        }
+
         private void Start()
         {
-            windowManager.Show<MainMenuWindow>();
+            WindowManager.Show<GamePlayUi>();
+        }
+
+        private void OnEnable()
+        {
+            MainMenuWindow.MainMenuOpen += OnMainMenuOpen;
+        }
+
+        private void OnDisable()
+        {
+            MainMenuWindow.MainMenuOpen -= OnMainMenuOpen;
+        }
+
+        private void OnMainMenuOpen(bool obj)
+        {
+            
         }
     }
 }

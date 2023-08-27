@@ -1,13 +1,17 @@
-﻿using MyBase.Common.Ui;
+﻿using System;
+using MyBase.Common.Ui;
 
 namespace @_.Scripts.Ui.Windows
 {
     public class MainMenuWindow : WindowBase
     {
+        public static event Action<bool> MainMenuOpen;
+        
         public void Button1Click()
         {
-            App.instance.windowManager.Show<GamePlayUi>();
-            App.instance.windowManager.Close(this);
+            WindowManager.Show<GamePlayUi>();
+            WindowManager.Close(this);
+            MainMenuOpen?.Invoke(false);
         }
     }
 }

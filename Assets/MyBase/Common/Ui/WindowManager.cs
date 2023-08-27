@@ -3,7 +3,8 @@ using System.Linq;
 using UnityEngine;
 
 namespace MyBase.Common.Ui
-{public class WindowManager : MonoBehaviour
+{
+    public class WindowManager : MonoBehaviour, ICanvasOpened
     {
         public List<WindowBase> windows { get; }
 
@@ -28,6 +29,7 @@ namespace MyBase.Common.Ui
             var type = typeof(T);
             var windowPrefab = Resources.Load<T>($"UI/Windows/{type.Name}");
             var window = Instantiate(windowPrefab, transform, false);
+            
 
             window.Bind(this).canvas.sortingOrder = _sortingOrder;
             windows.Add(window);
