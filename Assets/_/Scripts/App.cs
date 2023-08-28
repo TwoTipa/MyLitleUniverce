@@ -23,8 +23,10 @@ namespace _.Scripts
             
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            
             WindowManager = new GameObject("WindowManager").AddComponent<WindowManager>();
             WindowManager.transform.SetParent(transform);
 

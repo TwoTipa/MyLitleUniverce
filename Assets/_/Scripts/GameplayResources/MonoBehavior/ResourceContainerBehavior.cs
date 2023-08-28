@@ -11,40 +11,14 @@ namespace @_.Scripts.GameplayResources.MonoBehavior
         [SerializeField] private ContainerType type;
         private ResourceContainer _container;
 
-        public void Initialization()
+        public void Initialization(ResourceContainer container)
         {
-            
+            _container = container;
         }
 
         public IInteractionType GetContainer()
         {
             return (IInteractionType)_container;
-        }
-
-        
-        private void Start()
-        {
-            SetContainer();
-        }
-
-        private void SetContainer()
-        {
-            
-            Resource[] resources = new Resource[] { new ScrapResource(10), new WoodResource(15) };
-            switch (type)
-            {
-                case ContainerType.Chest:
-                    
-                    _container = new Chest(resources);
-                    
-                    break;
-                case ContainerType.Generator:
-                    _container = new Chest(resources);
-                    break;
-                default:
-                    
-                    break;
-            }
         }
     }
 

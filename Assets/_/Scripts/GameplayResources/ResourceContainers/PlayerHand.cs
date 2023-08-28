@@ -30,12 +30,6 @@ namespace _.Scripts.GameplayResources.ResourceContainers
         {
             var takeResource = giver.GiveResource();
             AddResource(takeResource);
-
-            Debug.Log($"У игрока теперь {Resources.Count} Разных ресурсов из них:");
-            foreach (var item in Resources)
-            {
-                Debug.Log($"{item.Name} {item.Amount}");
-            }
         }
 
         public Resource GiveResource()
@@ -48,14 +42,12 @@ namespace _.Scripts.GameplayResources.ResourceContainers
             var reqResource = Resources.FirstOrDefault(x => x.Name == resource.Name);
             if (reqResource == null)
             {
-                Debug.Log("Нет нужного ресурса");
                 return new EmptyResource(0);
             }
             
             var ret = reqResource.CreateInstance();
             ret.Amount = 1;
             if (!TryRemoveResource(ret)) return new EmptyResource(0);
-            Debug.Log($"{ret.Amount} {ret.Name}");
             return ret;
         }
     }

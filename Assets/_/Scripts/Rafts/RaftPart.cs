@@ -33,7 +33,7 @@ namespace _.Scripts.Rafts
             return Task.CompletedTask;
         }
 
-        public void SwitchContent(PartNames newContent)
+        public RaftPartContent SwitchContent(PartNames newContent)
         { 
             if (_content != null)
                 _content.Exit();
@@ -41,6 +41,8 @@ namespace _.Scripts.Rafts
             _content.Enter(this);
             
             SetNeighbor();
+
+            return _content;
         }
         
         private void Update()
@@ -63,6 +65,7 @@ namespace _.Scripts.Rafts
     {
         Empty,
         Selector,
-        PreBuilder
+        PreBuilder,
+        Builder
     }
 }

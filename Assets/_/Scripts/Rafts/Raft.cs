@@ -43,6 +43,7 @@ namespace _.Scripts.Rafts
             PartsList.Add(PartNames.Empty, Resources.Load<EmptyPart>("RaftParts/EmptyPart"));
             PartsList.Add(PartNames.Selector, Resources.Load<SelectorPart>("RaftParts/SelectorPart"));
             PartsList.Add(PartNames.PreBuilder, Resources.Load<PreBuilderPart>("RaftParts/PreBuilderPart"));
+            PartsList.Add(PartNames.Builder, Resources.Load<BuilderPart>("RaftParts/BuilderPart"));
             
             _raftPartPrefab = Resources.Load<RaftPart>("GamePlay/RaftPart");
             StartRaftBuild();

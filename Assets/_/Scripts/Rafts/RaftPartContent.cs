@@ -5,8 +5,9 @@ namespace _.Scripts.Rafts
     public abstract class RaftPartContent : ScriptableObject
     {
         [SerializeField] protected GameObject modelPrefab;
-        protected GameObject Model;
+        public GameObject Model { get; protected set; }
         protected RaftPart MyParent;
+
         public virtual void Enter(RaftPart part)
         {
             MyParent = part;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MyBase.Common.GameplayResources;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -54,7 +55,7 @@ namespace _.Scripts.GameplayResources
             return true;
         }
 
-        public void Subscribe()
+        public virtual void Subscribe(TextMeshProUGUI text)
         {
             
         }
