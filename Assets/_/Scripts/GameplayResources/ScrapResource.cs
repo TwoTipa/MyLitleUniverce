@@ -9,6 +9,7 @@ namespace _.Scripts.GameplayResources
         {
             Name = ResourceName.Scrap;
             Color = Color.blue;
+            Image = Resources.Load<Sprite>("DynamicData/ResourceImage/itemicon_scrap");
         }
 
         public override Resource CreateInstance()

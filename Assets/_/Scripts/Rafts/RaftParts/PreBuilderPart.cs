@@ -1,4 +1,5 @@
 using _.Scripts.Players;
+using _.Scripts.Rafts.Conditions;
 using _.Scripts.Ui.Windows;
 using MyBase.Common.Ui;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace _.Scripts.Rafts.RaftParts
     [CreateAssetMenu(menuName = "RaftParts/PreBuilderPart", fileName = "PreBuilderPart")]
     public class PreBuilderPart : RaftPartContent, INotExpansion
     {
+        [SerializeField] private Condition[] conditions;
         private const float DistToDeselect = 2.2f;
         private float _distanceToPlayer;
         private Transform _player;
@@ -20,7 +22,7 @@ namespace _.Scripts.Rafts.RaftParts
             
             _player = MyParent.Raft.Player.transform;
             var win = App.WindowManager.Show<SelectRaftPartCards>();
-            _conditionChecker = new ConditionChecker(MyParent, win);
+            _conditionChecker = new ConditionChecker(MyParent, win, conditions, part.Raft.GetAllParts());
         }
 
         public override void Execute()

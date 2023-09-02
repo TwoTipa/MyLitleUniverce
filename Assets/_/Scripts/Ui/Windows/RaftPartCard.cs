@@ -36,19 +36,23 @@ namespace _.Scripts.Ui.Windows
 
         private void Initialize(GameObject model)
         {
-            var canvas = model.transform.GetComponentInChildren<Canvas>();
-            _newResourceUi = Instantiate(resourceUiPrefab, canvas.transform);
-
-            _resourceImage = _newResourceUi.GetComponentInChildren<Image>();
-            _countResourceField = _newResourceUi.GetComponentInChildren<TextMeshProUGUI>();
-
-            _countResourceField.text = _setting.NeedResources[0].Amount.ToString();
-
-            var builder = new Builder(_setting.NeedResources, _part);
+            var builder = new Builder(_setting.NeedResources.ToArray(), _part);
             model.AddComponent<ResourceContainerBehavior>().Initialization(builder);
+
+            var container = model.transform.GetComponentInChildren<VerticalLayoutGroup>();
             
-            builder.Subscribe(_countResourceField);
-            Debug.Log($"Нужно {_setting.NeedResources[0].Amount} {_setting.NeedResources[0].Name} для того чтобы построить {_setting.Name}");
+            for (int i = 0; i < _setting.NeedResources.Count; i++)
+            {
+                _newResourceUi = Instantiate(resourceUiPrefab, container.transform);
+
+                _resourceImage = _newResourceUi.GetComponentInChildren<Image>();
+                _countResourceField = _newResourceUi.GetComponentInChildren<TextMeshProUGUI>();
+
+                _countResourceField.text = _setting.NeedResources[i].Amount.ToString();
+                _resourceImage.sprite = _setting.NeedResources[i].Image;
+                
+                _setting.NeedResources[i].Subscribe(_countResourceField);
+            }
         }
     }
 }

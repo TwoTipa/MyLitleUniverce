@@ -44,6 +44,11 @@ namespace _.Scripts.Rafts
 
             return _content;
         }
+
+        public RaftPartContent GetContent()
+        {
+            return _content;
+        }
         
         private void Update()
         {

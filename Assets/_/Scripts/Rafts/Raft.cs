@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using _.Scripts.Players;
 using _.Scripts.Rafts.RaftParts;
@@ -37,6 +38,10 @@ namespace _.Scripts.Rafts
 
         #endregion
 
+        public RaftPart[] GetAllParts()
+        {
+            return _allParts.Values.ToArray();
+        }
         public void Initialization(Player player)
         {
             Player = player;
@@ -55,8 +60,6 @@ namespace _.Scripts.Rafts
 
             var newPart = BuildRaftPart(pos);
             newPart.Initialize(new Vector2(cellSize, cellSize), this);
-
-            _allParts.Add(pos, newPart);
             return true;
         }
         public async Task<bool> TryBuildPart(Vector2Int pos, PartNames type)
@@ -65,16 +68,16 @@ namespace _.Scripts.Rafts
 
             var newPart = BuildRaftPart(pos);
             await newPart.Initialize(new Vector2(cellSize, cellSize), this, type);
-            
-            _allParts.Add(pos, newPart);
             return true;
         }
 
         private RaftPart BuildRaftPart(Vector2Int pos)
         {
             var localPos = new Vector3(pos.x, 0, pos.y) * cellSize;
-            var newPart = Instantiate(_raftPartPrefab, Vector3.zero, Quaternion.identity, raftPartContainer);
+            var newPart = Instantiate(_raftPartPrefab, Vector3.zero, Quaternion.identity, raftPartContainer.transform);
             newPart.transform.localPosition = localPos;
+            
+            _allParts.Add(pos, newPart);
             return newPart;
         }
 
@@ -85,11 +88,9 @@ namespace _.Scripts.Rafts
                 for (int j = 0; j < raftWeight; j++)
                 {
                     var res = TryBuildPart(new Vector2Int(i, j), PartNames.Empty).Result;
-                    if (!res)
-                    {
-                        var pos = new Vector2Int(i, j);
-                        _allParts[pos].SwitchContent(PartNames.Empty);
-                    }
+                    if (res) continue;
+                    var pos = new Vector2Int(i, j);
+                    _allParts[pos].SwitchContent(PartNames.Empty);
                 }
             }
         }

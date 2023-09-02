@@ -9,6 +9,7 @@ namespace _.Scripts.GameplayResources
         {
             Name = ResourceName.Wood;
             Color = Color.red;
+            Image = Resources.Load<Sprite>("DynamicData/ResourceImage/itemicon_tree");
         }
 
         public override Resource CreateInstance()

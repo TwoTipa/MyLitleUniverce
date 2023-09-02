@@ -30,7 +30,6 @@ namespace _.Scripts.GameplayResources.ResourceContainers
             AddResource(newResource);
             _needForBuild[0].Amount -= newResource.Amount;
 
-            _textField.text = _needForBuild[0].Amount.ToString();
             if (_needForBuild[0].Amount <= 0)
             {
                 _needForBuild.RemoveAt(0);
@@ -49,7 +48,7 @@ namespace _.Scripts.GameplayResources.ResourceContainers
 
         public override void Subscribe(TextMeshProUGUI text)
         {
-            _textField = text;
+            _needForBuild[0].Subscribe(text);
         }
     }
 }
